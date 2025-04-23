@@ -76,3 +76,10 @@
 .submitButton:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* margin-bottom: 6rem; */
+}

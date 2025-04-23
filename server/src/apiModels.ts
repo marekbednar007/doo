@@ -19,4 +19,13 @@ mongoose
 
 const Schema = mongoose.Schema;
 
-module.exports;
+const userSchema = new Schema({
+  email: String,
+  password: String,
+});
+
+const User = mongoose.model('user', userSchema, 'users');
+
+module.exports = {
+  User,
+};
