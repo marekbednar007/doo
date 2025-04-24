@@ -25,16 +25,15 @@ What do I want?
 1/ Make a connection to OpenAI API
 [DONE]-Run a basic prompt and get it to work
 [DONE] -> print the result on the frontend
+[DONE] -> improve systemPrompt
+
+// MUST
 -> stream the result on the frontend
--> improve systemPrompt
-
 -> store the response and show it on the screen
+-> Store the result into our mongoDB
+-> Improve the styling of the responses
 
-2/ Store the result into our mongoDB
--> query as well as the response into the DB
--> prompt, message, (user - later)
-
-STRETCH FEATURES:
+// STRETCH FEATURES:
 1/ Store the chat history
 2/ Authenticate the USER
 3/ Styling:

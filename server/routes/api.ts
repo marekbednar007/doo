@@ -13,23 +13,6 @@ export default function (client: OpenAI) {
 
   // // Move the logic into our controller
   // // https://www.youtube.com/watch?v=FPkgrLr0KBU
-  // router.post(
-  //   '/postMessage',
-  //   (req: Request, res: Response, next: NextFunction) => {
-  //     // pass client to controller
-  //     res.locals.openaiClient = client;
-  //     return next();
-  //   },
-  //   // (req: Request, res: Response, next: NextFunction) => {
-  //   //   void apiController.postMessage(req, res, next).catch(next);
-  //   // },
-  //   apiController.postMessage
-  //   // apiController.postMessage(req, res, next, client)
-  //   // (req: Request, res: Response) => {
-  //   //   res.status(200).json(res.locals.newMessage);
-  //   // }
-  // );
-
   router.post(
     '/postMessage',
     (req: Request, res: Response, next: NextFunction) =>

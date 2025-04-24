@@ -29,7 +29,7 @@ function TypeForm() {
 
       const data = await response.json();
       setOutputValue(data);
-      console.log('Response:', data);
+      // console.log('Response:', data);
       // console.log('Typeof response:', typeof data); // String
       setInputValue('');
     } catch (error) {
