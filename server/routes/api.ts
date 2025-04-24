@@ -22,12 +22,21 @@ export default function (client: OpenAI) {
     }
   );
 
-  router.post(
-    '/getResponse',
-    apiController.getResponse,
-    (req: Request, res: Response) => {
-      res.status(200).json(res.locals.aiResponse);
+  router.get(
+    '/stream',
+    (req: Request, res: Response, next: NextFunction) => {
+      const { prompt } = req.query;
+      console.log(prompt);
+
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+
+      apiController.getResponse(prompt as string, res, client);
     }
+    // (req: Request, res: Response) => {
+    //   res.status(200).json(res.locals.aiResponse);
+    // }
   );
 
   return router;

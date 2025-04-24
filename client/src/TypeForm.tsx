@@ -9,33 +9,66 @@ function TypeForm() {
   const [outputValue, setOutputValue] = useState('');
   const [userValue, setUserValue] = useState('');
 
-  const handleSubmit = async (event: FormEvent) => {
+  // #2 STREAMING RESPONSE
+  /* EventSource = standard browser API:
+  1/ Opens a persistent connection to the server
+  2/ Automatically parses SSE-formatted responses (SSE = Server-Sent Events)
+  3/ Emits JS events when data is received
+  4/ Auto-reconnects if the connection drops
+  */
+  const handleSubmitStream = async (event: FormEvent) => {
     event.preventDefault();
     setUserValue(inputValue);
 
-    try {
-      // const response = await fetch('http://localhost:3000/api/postMessage', {
-      const response = await fetch('/api/postMessage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt: inputValue }),
-      });
+    const eventSource = await new EventSource(
+      '/api/stream?prompt=' + encodeURIComponent(inputValue)
+    );
 
-      if (!response.ok) {
-        throw new Error('Failed to submit message');
-      }
+    eventSource.onmessage = (event) => {
+      // Append each chunk to the output as it arrives
+      setOutputValue((current) => current + event.data);
+    };
 
-      const data = await response.json();
-      setOutputValue(data);
-      // console.log('Response:', data);
-      // console.log('Typeof response:', typeof data); // String
-      setInputValue('');
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    eventSource.addEventListener('DONE', () => {
+      eventSource.close();
+    });
+
+    eventSource.onerror = () => {
+      eventSource.close();
+    };
+
+    setInputValue('');
+    setOutputValue('');
   };
+
+  // // #1 ONE TIME RESPONSE
+  // const handleSubmit = async (event: FormEvent) => {
+  //   event.preventDefault();
+  //   setUserValue(inputValue);
+
+  //   try {
+  //     // const response = await fetch('http://localhost:3000/api/postMessage', {
+  //     const response = await fetch('/api/postMessage', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ prompt: inputValue }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to submit message');
+  //     }
+
+  //     const data = await response.json();
+  //     setOutputValue(data);
+  //     // console.log('Response:', data);
+  //     // console.log('Typeof response:', typeof data); // String
+  //     setInputValue('');
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
 
   // https://stackoverflow.com/questions/40676343/typescript-input-onchange-event-target-value
   // https://stackoverflow.com/questions/53943737/typescript-react-component-that-accepts-onchange-for-both-textarea-and-input
@@ -55,7 +88,8 @@ function TypeForm() {
           //   inputValue ?? outputValue;
           // }}
         />
-        <form className='form' onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmitStream}>
+          {/* <form className='form' onSubmit={handleSubmit}> */}
           <div className='input-container'>
             {/* https://github.com/Andarist/react-textarea-autosize */}
             <TextAreaAutoSize

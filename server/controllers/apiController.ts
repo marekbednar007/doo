@@ -43,9 +43,10 @@ const promptOpenAI = async (
     let content = part.choices[0].delta.content ?? '';
     fullContent += content;
   }
+  return fullContent;
 
   // const content = completion.choices[0]?.message.content;
-  return fullContent;
+  // return content;
 };
 
 const apiController = {
@@ -84,12 +85,43 @@ const apiController = {
     }
   },
 
-  getResponse: async (req: Request, res: Response, next: NextFunction) => {
+  getResponse: async (prompt: string, res: Response, client: OpenAI) => {
     try {
-      res.locals.aiResponse = { message: 'AI message' };
-      return next();
+      const systemPrompt = fs.readFileSync(
+        path.join(__dirname, './systemPrompt.txt'),
+        'utf8'
+      );
+
+      const completion = await client.chat.completions.create({
+        model: 'gpt-4.1',
+        messages: [
+          {
+            role: 'system',
+            content: systemPrompt,
+          },
+          { role: 'user', content: prompt },
+        ],
+        store: true,
+        stream: true,
+      });
+
+      res.write('data: \n\n');
+
+      let result = '';
+      // https://www.youtube.com/watch?v=3ECwPC464cs
+      for await (const part of completion) {
+        const content = part.choices[0].delta.content ?? '';
+        res.write(`data: ${content}\n\n`);
+        result += content;
+      }
+
+      res.locals.aiResponse = result;
+      res.write('event: DONE\ndata: \n\n');
+      res.end();
     } catch (err) {
-      next(err);
+      console.error('Stream error:', err);
+      res.write('data: [ERROR] Streaming failed\n\n');
+      res.end();
     }
   },
 };
