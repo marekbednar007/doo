@@ -1,4 +1,4 @@
-.navBar {
+/* .navBar {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -18,4 +18,85 @@ h1 {
   line-height: 1.1;
   justify-content: center;
   align-items: center;
+} */
+
+/* Container styling - positions everything properly */
+.navBar-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.nav-spacer {
+  grid-column: 1;
+}
+
+.navBar {
+  grid-column: 2;
+  text-align: center;
+}
+
+.navBar h1 {
+  font-family: 'DynaPuff';
+  color: #ffffffa8;
+  font-weight: 570;
+  font-size: 3.2em;
+  line-height: 0.6;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.button-container {
+  grid-column: 3;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.button-login,
+.button-signup {
+  padding: 0.5rem 1rem;
+  border-radius: 21px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+/* STYLING */
+.button-login {
+  background-color: #b1b1b196;
+  color: #242424;
+  border: 1px solid transparent;
+}
+
+.button-login:hover {
+  background-color: #c9c9c9;
+  border-color: #000000;
+}
+
+.button-signup {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.412);
+  border: 1px solid rgba(255, 255, 255, 0.357);
+}
+
+.button-signup:hover {
+  background-color: #c9c9c9;
+  color: #242424;
+  border-color: #000000;
 }

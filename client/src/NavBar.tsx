@@ -23,9 +23,17 @@ function NavBar({ title }: { title: string }) {
   return (
     <>
       {/* <nav className={isSticky ? 'sticky' : ''}> */}
-      <header className='navBar'>
-        <h1>{title}</h1>
-      </header>
+      <div className='navBar-container'>
+        <div className='nav-spacer'></div>
+        <header className='navBar'>
+          <h1>{title}</h1>
+        </header>
+
+        <div className='button-container'>
+          <button className='button-login'>Login</button>
+          <button className='button-signup'>Sign up</button>
+        </div>
+      </div>
       {/* <div style={{ marginTop: isSticky ? '50px' : '0' }}></div> */}
     </>
   );

@@ -32,3 +32,35 @@
   /* background-color: #444444;
   border-radius: 15px; */
 }
+
+.ai-message pre {
+  background-color: #333;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.ai-message code {
+  font-family: monospace;
+  background-color: #333;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ai-message h1,
+.ai-message h2,
+.ai-message h3 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.ai-message p {
+  margin-bottom: 10px;
+}
+
+.ai-message ul,
+.ai-message ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}

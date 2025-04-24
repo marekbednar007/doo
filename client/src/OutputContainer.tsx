@@ -1,15 +1,37 @@
+import ReactMarkdown from 'react-markdown';
 import './OutputContainer.css';
 
 interface OutputContainerProps {
-  userValue?: String;
-  outputValue?: String;
+  userValue: string[];
+  outputValue: string[];
+  currentResponse: string;
 }
 
-function OutputContainer({ userValue, outputValue }: OutputContainerProps) {
+// React MarkDown:
+// https://medium.com/@dimterion/react-markdown-examples-372fa1b21c0c
+
+function OutputContainer({
+  userValue,
+  outputValue,
+  currentResponse,
+}: OutputContainerProps) {
   return (
     <div className='output-container'>
-      {userValue && <div className='user-message'>{userValue}</div>}
-      {outputValue && <div className='ai-message'>{outputValue}</div>}
+      {userValue &&
+        userValue.map((el, i) => (
+          <div key={i} className='user-message'>
+            {el}
+          </div>
+        ))}
+      {outputValue &&
+        outputValue.map((el, i) => (
+          <div key={i} className='ai-message'>
+            <ReactMarkdown>{el}</ReactMarkdown>
+          </div>
+        ))}
+      <div className='ai-message'>
+        <ReactMarkdown>{currentResponse}</ReactMarkdown>
+      </div>
     </div>
   );
 }

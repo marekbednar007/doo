@@ -6,30 +6,35 @@ import OutputContainer from './OutputContainer.tsx';
 function TypeForm() {
   // const [count, setCount] = useState(0);
   const [inputValue, setInputValue] = useState('');
-  const [outputValue, setOutputValue] = useState('');
-  const [userValue, setUserValue] = useState('');
+  const [currentResponse, setCurrentResponse] = useState('');
+  const [outputValue, setOutputValue] = useState<string[]>([]);
+  const [userValue, setUserValue] = useState<string[]>([]);
 
-  // #2 STREAMING RESPONSE
+  // #1 STREAMING RESPONSE
   /* EventSource = standard browser API:
   1/ Opens a persistent connection to the server
   2/ Automatically parses SSE-formatted responses (SSE = Server-Sent Events)
   3/ Emits JS events when data is received
   4/ Auto-reconnects if the connection drops
+
+  https://react.dev/learn/updating-arrays-in-state
   */
   const handleSubmitStream = async (event: FormEvent) => {
     event.preventDefault();
-    setUserValue(inputValue);
+    setUserValue((prev) => [...prev, inputValue]);
 
-    const eventSource = await new EventSource(
+    const eventSource = new EventSource(
       '/api/stream?prompt=' + encodeURIComponent(inputValue)
     );
 
     eventSource.onmessage = (event) => {
       // Append each chunk to the output as it arrives
-      setOutputValue((current) => current + event.data);
+      setCurrentResponse((current) => current + event.data);
+      // setOutputValue((current) => current + event.data);
     };
 
     eventSource.addEventListener('DONE', () => {
+      setOutputValue((prev) => [...prev, currentResponse]);
       eventSource.close();
     });
 
@@ -37,11 +42,12 @@ function TypeForm() {
       eventSource.close();
     };
 
+    setCurrentResponse('');
     setInputValue('');
-    setOutputValue('');
+    // setOutputValue([]);
   };
 
-  // // #1 ONE TIME RESPONSE
+  // // #2 ONE TIME RESPONSE
   // const handleSubmit = async (event: FormEvent) => {
   //   event.preventDefault();
   //   setUserValue(inputValue);
@@ -83,6 +89,7 @@ function TypeForm() {
         <OutputContainer
           userValue={userValue}
           outputValue={outputValue}
+          currentResponse={currentResponse}
           // input={inputValue}
           // props={() => {
           //   inputValue ?? outputValue;
