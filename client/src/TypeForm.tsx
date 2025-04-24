@@ -7,9 +7,11 @@ function TypeForm() {
   // const [count, setCount] = useState(0);
   const [inputValue, setInputValue] = useState('');
   const [outputValue, setOutputValue] = useState('');
+  const [userValue, setUserValue] = useState('');
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setUserValue(inputValue);
 
     try {
       // const response = await fetch('http://localhost:3000/api/postMessage', {
@@ -45,7 +47,14 @@ function TypeForm() {
   return (
     <>
       <div className='chat-container'>
-        <OutputContainer output={outputValue} />
+        <OutputContainer
+          userValue={userValue}
+          outputValue={outputValue}
+          // input={inputValue}
+          // props={() => {
+          //   inputValue ?? outputValue;
+          // }}
+        />
         <form className='form' onSubmit={handleSubmit}>
           <div className='input-container'>
             {/* https://github.com/Andarist/react-textarea-autosize */}

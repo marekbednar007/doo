@@ -24,8 +24,8 @@ app.use('/api', router(client));
 app.get('/', (_req, res) => {
   res.send('hello, this is doo.');
 });
-
 // Global Error Handler
+
 // https://stackoverflow.com/questions/50218878/typescript-express-error-function
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   const defaultErr = {

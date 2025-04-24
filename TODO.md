@@ -35,9 +35,10 @@ What do I want?
 -> prompt, message, (user - later)
 
 STRETCH FEATURES:
-1/ Authenticate the USER
-2/ Store the chat history
+1/ Store the chat history
+2/ Authenticate the USER
 3/ Styling:
 -navbar, logo
 -submit button icon
 -darkmode / yellowmode
+4/ Accept voice input (Whisper)

@@ -1,14 +1,15 @@
 import './OutputContainer.css';
 
 interface OutputContainerProps {
-  output?: String;
-  prompt?: String;
+  userValue?: String;
+  outputValue?: String;
 }
 
-function OutputContainer({ output, prompt }: OutputContainerProps) {
+function OutputContainer({ userValue, outputValue }: OutputContainerProps) {
   return (
     <div className='output-container'>
-      {output} ?? {prompt}
+      {userValue && <div className='user-message'>{userValue}</div>}
+      {outputValue && <div className='ai-message'>{outputValue}</div>}
     </div>
   );
 }

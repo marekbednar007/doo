@@ -10,3 +10,12 @@
   width: 100%;
   z-index: 1000;
 }
+
+h1 {
+  font-family: 'DynaPuff';
+  font-weight: 570;
+  font-size: 3.2em;
+  line-height: 1.1;
+  justify-content: center;
+  align-items: center;
+}
