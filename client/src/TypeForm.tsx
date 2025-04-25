@@ -18,7 +18,29 @@ function TypeForm() {
   4/ Auto-reconnects if the connection drops
 
   https://react.dev/learn/updating-arrays-in-state
+  https://www.shecodes.io/athena/11801-adding-multiple-functions-in-single-onsubmit-in-react
   */
+  // const handleDbSave = async () => {
+  //   try {
+  //     const response = await fetch('/api/saveData', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         userMessage: userValue,
+  //         aiResponse: outputValue,
+  //       }),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to save the data');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
+  // #1 HANDLE SUBMIT STREAM
   const handleSubmitStream = async (event: FormEvent) => {
     event.preventDefault();
     setUserValue((prev) => [...prev, inputValue]);
@@ -30,7 +52,6 @@ function TypeForm() {
     eventSource.onmessage = (event) => {
       // Append each chunk to the output as it arrives
       setCurrentResponse((current) => current + event.data);
-      // setOutputValue((current) => current + event.data);
     };
 
     eventSource.addEventListener('DONE', () => {
@@ -41,6 +62,7 @@ function TypeForm() {
     eventSource.onerror = () => {
       eventSource.close();
     };
+    // await handleDbSave();
 
     setCurrentResponse('');
     setInputValue('');
@@ -90,10 +112,6 @@ function TypeForm() {
           userValue={userValue}
           outputValue={outputValue}
           currentResponse={currentResponse}
-          // input={inputValue}
-          // props={() => {
-          //   inputValue ?? outputValue;
-          // }}
         />
         <form className='form' onSubmit={handleSubmitStream}>
           {/* <form className='form' onSubmit={handleSubmit}> */}
@@ -111,11 +129,6 @@ function TypeForm() {
           </div>
         </form>
       </div>
-      {/* <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div> */}
     </>
   );
 }

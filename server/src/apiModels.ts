@@ -20,12 +20,17 @@ mongoose
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  email: String,
-  password: String,
+  userMessage: String,
+  aiMessage: String,
 });
 
 const User = mongoose.model('user', userSchema, 'users');
 
-module.exports = {
+// module.exports = {
+//   User,
+// };
+const model = {
   User,
 };
+
+export default model;

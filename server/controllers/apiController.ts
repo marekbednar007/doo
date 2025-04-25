@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import type OpenAI from 'openai';
 import path from 'path';
 import fs from 'fs';
-// import models from '../src/apiModels';
+// import model from '../src/apiModels';
 
 const promptOpenAI = async (
   systemPrompt: string,
@@ -124,6 +124,19 @@ const apiController = {
       res.end();
     }
   },
+
+  // saveToDb: async (req: Request, res: Response, next: NextFunction) => {
+  //   const { userMessage, outputValue } = req.body;
+  //   try {
+  //     await model.User.create({
+  //       userMessage,
+  //       outputValue,
+  //     });
+  //     return next();
+  //   } catch (err) {
+  //     return next({ err });
+  //   }
+  // },
 };
 
 export default apiController;

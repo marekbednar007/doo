@@ -26,18 +26,16 @@ What do I want?
 [DONE]-Run a basic prompt and get it to work
 [DONE] -> print the result on the frontend
 [DONE] -> improve systemPrompt
-
-// MUST
--> stream the result on the frontend
--> store the response and show it on the screen
--> Store the result into our mongoDB
--> Improve the styling of the responses
+[DONE] -> stream the result on the frontend
+[DONE] -> store the response and show it on the screen
 
 // STRETCH FEATURES:
+0/ Store the result into our mongoDB / SQL
 1/ Store the chat history
 2/ Authenticate the USER
-3/ Styling:
--navbar, logo
+3/ Improve the styling of the responses
+4/ Styling:
+[DONE] -navbar, logo
 -submit button icon
 -darkmode / yellowmode
-4/ Accept voice input (Whisper)
+7/ Accept voice input (Whisper)

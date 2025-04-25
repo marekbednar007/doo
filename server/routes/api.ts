@@ -39,5 +39,9 @@ export default function (client: OpenAI) {
     // }
   );
 
+  // router.post('/saveData', apiController.saveToDb, (req, res) => {
+  //   res.status(200).send('Data saved');
+  // });
+
   return router;
 }
